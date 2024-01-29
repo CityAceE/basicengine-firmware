@@ -252,7 +252,7 @@ uint8_t sdfiles::flist(char *_dir, char *wildcard, uint8_t clmnum) {
         putnum(st.st_size, 10);
         c_putch(' ');
         total_size += st.st_size;
-        if (next->d_type == DT_DIR) {
+        if (S_ISDIR(st.st_mode)) {
           c_puts(fname.c_str());
           c_puts("*");
           len++;
