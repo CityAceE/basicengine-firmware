@@ -133,7 +133,11 @@ out:
        BString(dir_entry->d_name)).c_str(), &st);
 
   retval[0] = st.st_size;
+#ifdef _WIN32
+  retval[1] = 0;	// XXX: ??
+#else
   retval[1] = dir_entry->d_type == DT_DIR;
+#endif
 
   return BString(dir_entry->d_name);
 }
