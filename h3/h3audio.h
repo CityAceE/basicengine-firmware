@@ -56,10 +56,7 @@ public:
   }
 
   BString deviceUsed() {
-    if (idx == 0)
-      return BString("default");
-    else
-      return BString(nullptr);
+    return BString("default");
   }
 
 private:
