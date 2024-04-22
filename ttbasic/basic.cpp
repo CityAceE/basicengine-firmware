@@ -271,6 +271,7 @@ const token_t i_nsa[] BASIC_DAT = {
   I_SQOPEN, I_SQCLOSE,
   I_INKEYSTR,
   I_UP, I_DOWN, I_LEFT, I_RIGHT, I_TAB,
+  I_PROC, I_CALL, I_FN,
 };
 
 // Intermediate code which eliminates previous space when former is constant or variable
@@ -1421,9 +1422,28 @@ int SMALL Basic::putlist(icode_t *ip, uint8_t devno) {
       c_puts_P(kw, devno);
       sc0.setColor(COL(FG), COL(BG));
 
-      if (ip[1] != I_EOL && ip[1] != I_IMPLICITENDIF && ip[1] != I_COLON &&
-          (ip[1] != I_OPEN || !isfun((token_t)*ip)))
-        if ((!nospacea((token_t)*ip) || spacef((token_t)ip[1])) &&
+      if (*ip == I_PROC || *ip == I_CALL || *ip == I_FN) {
+        // These tokens need a space between them and their argument. The
+        // space printed below cannot serve that purpose because it depends
+        // on the token that follows. That's why we print the argument here.
+        c_putch(' ', devno);
+        sc0.setColor(COL(PROC), COL(BG));
+        c_puts(proc_names.name(ip[1]), devno);
+        sc0.setColor(COL(FG), COL(BG));
+      }
+
+      // Look ahead to the next token to see if we need a trailing space.
+      icode_t next_token;
+
+      // token_size() special-cases these when followed by a label, so we have to un-special-case them... :(
+      if ((*ip == I_GOTO || *ip == I_GOSUB || *ip == I_COMMA || *ip == I_RESTORE) && ip[1] == I_LABEL)
+        next_token = ip[1];
+      else
+        next_token = ip[token_size(ip)];
+
+      if (next_token != I_EOL && next_token != I_IMPLICITENDIF && next_token != I_COLON &&
+          (next_token != I_OPEN || !isfun((token_t)*ip)))
+        if ((!nospacea((token_t)*ip) || spacef((token_t)next_token)) &&
             *ip != I_COLON && *ip != I_SQUOT && *ip != I_REM && *ip != I_HASH && *ip != I_LABEL)
           c_putch(' ', devno);
 
@@ -1433,10 +1453,8 @@ int SMALL Basic::putlist(icode_t *ip, uint8_t devno) {
         // XXX: This should probably be factored out.
         goto handle_comment_strings;
       } else if (*ip == I_PROC || *ip == I_CALL || *ip == I_FN) {
+        // argument already printed above
         ip++;
-        sc0.setColor(COL(PROC), COL(BG));
-        c_puts(proc_names.name(*ip), devno);
-        sc0.setColor(COL(FG), COL(BG));
       } else if (*ip == I_LABEL) {
         ip++;
         sc0.setColor(COL(PROC), COL(BG));
