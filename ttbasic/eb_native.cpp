@@ -24,6 +24,8 @@ TCCState *eb_tcc_new(int output_type) {
   BString default_include_path =
 #ifdef SDL
           BString(getenv("ENGINEBASIC_ROOT")) +
+#elif defined(JAILHOUSE)
+          BString("/sd") +
 #endif
           BString("/sys/include");
   tcc_add_include_path(tcc, default_include_path.c_str());
