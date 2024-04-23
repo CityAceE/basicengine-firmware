@@ -1573,6 +1573,8 @@ handle_comment_strings:
       ip++;                       //ポインタを文字数へ進める
 
       if (type == I_STR) {
+        // XXX: This is bogus because single-quoted strings are not
+        // correctly parsed by the tokenizer.
         //文字列の括りに使われている文字を調べる
         c = '\"';                   //文字列の括りを仮に「"」とする
         for (i = *ip; i; i--)       //文字数だけ繰り返す
@@ -1612,7 +1614,12 @@ handle_comment_strings:
         }
 
         utf8codepoint(tmp_utf8, &codepoint);
-        c_putch(codepoint, devno);  //ポインタを進めながら文字を表示
+        if (codepoint < 32)
+          c_printf("\\x%02x", codepoint);
+        else if (codepoint >= ESC_CODE && codepoint < ESC_CODE_END)
+          c_printf("\\%c", codepoint - ESC_CODE);
+        else
+          c_putch(codepoint, devno);  //ポインタを進めながら文字を表示
       }
 
       if (type == I_REM || type == I_SQUOT) {

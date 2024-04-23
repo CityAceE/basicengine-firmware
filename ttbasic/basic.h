@@ -103,6 +103,9 @@ void BASIC_FP ilvar();
 #define NEW_PROG 1
 #define NEW_VAR  2
 
+#define ESC_CODE 0x100000
+#define ESC_CODE_END (ESC_CODE + 0x100)
+
 extern void E_SYNTAX(token_t token);
 #define SYNTAX_T(exp)   \
   do {                  \
