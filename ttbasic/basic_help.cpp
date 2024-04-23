@@ -156,6 +156,8 @@ static void print_wrapped(const char *text) {
     c_putch('\n');
 }
 
+#define ESC_F "\xf4\x80\x81\x86"	// aka 0x100046, aka \F in BASIC
+
 static void print_help(sjson_node *h) {
     pixel_t saved_fg_color = sc0.getFgColor();
     pixel_t saved_bg_color = sc0.getBgColor();
@@ -163,11 +165,11 @@ static void print_help(sjson_node *h) {
 
     screen_putch_disable_escape_codes = false;
 
-    c_printf("\n\\Fc%s ", sjson_get_string(h, "command", NULL));
+    c_printf("\n" ESC_F "c%s ", sjson_get_string(h, "command", NULL));
 
     const char *type = sjson_get_string(h, "type", NULL);
     const char *section = sjson_get_string(h, "section", NULL);
-    c_printf("\\Fl(%s, %s)\\Ff\n\n", _(type_name(type)), _(section_name(section)));
+    c_printf(ESC_F "l(%s, %s)" ESC_F "f\n\n", _(type_name(type)), _(section_name(section)));
 
     print_wrapped(sjson_get_string(h, "brief", _("missing")));
 
@@ -177,19 +179,19 @@ static void print_help(sjson_node *h) {
             !strcmp(item->key, "section") || !strcmp(item->key, "brief") || !strcmp(item->key, "tokens"))
             continue;
 
-        c_puts("\n\\Fk");
+        c_puts("\n" ESC_F "k");
         c_puts(_(item_name(item->key)));
         c_putch(':');
         if (!strcmp(item->key, "usage"))
-            c_puts("\\Fn\n\n");
+            c_puts(ESC_F "n\n\n");
         else
-            c_puts("\\Ff\n\n");
+            c_puts(ESC_F "f\n\n");
 
         if (!strcmp(item->key, "args")) {
             sjson_node *it;
             sjson_foreach(it, item) {
                 if (it->tag == SJSON_STRING) {
-                    c_printf("  \\FL%s\t\\Ff", it->key);
+                    c_printf("  " ESC_F "L%s\t" ESC_F "f", it->key);
                     print_wrapped(_(it->string_));
                 }
             }
@@ -318,9 +320,9 @@ void Basic::ihelp() {
     sjson_node *cmd;
 
     if (tokens.length() == 0) {
-        c_puts("\n\\Fk");
+        c_puts("\n" ESC_F "k");
         c_puts(_("Available commands:"));
-        c_puts("\\Ff\n\n");
+        c_puts(ESC_F "f\n\n");
         sjson_foreach(cmd, commands) {
             c_printf("%s\t", sjson_get_string(cmd, "command", NULL));
         }
@@ -368,9 +370,9 @@ void Basic::ihelp() {
         pixel_t saved_fg_color = sc0.getFgColor();
         pixel_t saved_bg_color = sc0.getBgColor();
 
-        c_puts("\n\\Fk");
+        c_puts("\n" ESC_F "k");
         c_puts(_("Matching commands:"));
-        c_puts("\\Ff\n\n");
+        c_puts(ESC_F "f\n\n");
         for (int i = 0; i < hints.length(); ++i) {
             const char *command = sjson_get_string(hints[i], "command", NULL);
             if (command) {
@@ -378,9 +380,9 @@ void Basic::ihelp() {
             }
         }
 
-        c_puts("\n\\Fk");
+        c_puts("\n" ESC_F "k");
         c_puts(_("See also:"));
-        c_puts("\\Ff\n");
+        c_puts(ESC_F "f\n");
         for (int i = 0; i < hints.length(); ++i) {
             sjson_node *refs = sjson_find_member(hints[i], "ref");
             sjson_node *ref;
