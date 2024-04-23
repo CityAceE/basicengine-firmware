@@ -28,7 +28,7 @@ EBAPI int eb_screen(int m) {
   --m;
 
   vs23.reset();
-  screen_putch_disable_escape_codes = false;
+  screen_putch_disable_escape_codes = true;
   screen_putch_enable_ansi_mode = false;
 
   if (scmode == m) {

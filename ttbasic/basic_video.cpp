@@ -10,7 +10,7 @@ tTVscreen sc0;
 
 #include <fonts.h>
 
-bool screen_putch_disable_escape_codes = false;
+bool screen_putch_disable_escape_codes = true;
 bool screen_putch_enable_ansi_mode = false;
 int screen_putch_paging_counter = -1;
 bool screen_putch_enable_reverse = false;
@@ -42,11 +42,6 @@ void BASIC_INT NOJUMP screen_putch(utf8_int32_t c, bool lazy) {
     delay(3);
   }
 
-  if (screen_putch_disable_escape_codes) {
-    sc0.putch(c, lazy);
-    return;
-  }
-
   // When we see an ESC, we switch to ANSI mode.
   if (!screen_putch_enable_ansi_mode && c == 0x1b)
     screen_putch_enable_ansi_mode = true;
@@ -55,7 +50,7 @@ void BASIC_INT NOJUMP screen_putch(utf8_int32_t c, bool lazy) {
     return;
 
   if (!screen_putch_enable_ansi_mode && c == '\\') {
-    if (!escape) {
+    if (!escape && !screen_putch_disable_escape_codes) {
       escape = true;
       if (hex_digit) {
         put_hex_digit(hex_value, hex_type, lazy);
