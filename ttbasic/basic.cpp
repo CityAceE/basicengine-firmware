@@ -933,11 +933,57 @@ as local variables or arguments.
 
       BString sstr;
       ibuf[len++] = I_STR;
-      ibuf[len++] = i;  // record the number of characters in the string
+      int len_idx = len++; // where we will have to record the number of characters later
+      bool escape = false;
       while (i--) {
-        sstr.concat(*s);
-        ibuf[len++] = *s++;  // Record character
+        if (*s == '\\' && !escape) {
+          escape = true;
+          ++s;
+        } else if (escape) {
+          switch (*s) {
+          case 'x': {
+              ++s;
+              utf8_int32_t out = 0;
+              while (isHexadecimalDigit(*s) && i > 0) {
+                out = (out << 4) | hex2value(*s);
+                ++s;
+                i--;
+              }
+              int utf8_size = utf8codepointsize(out);
+              char out_utf8[utf8_size + 1];
+              out_utf8[utf8_size] = 0;
+              utf8catcodepoint(out_utf8, out, utf8_size);
+              sstr.concat(out_utf8);
+              for (int i = 0; i < utf8_size; ++i) {
+                ibuf[len++] = out_utf8[i];
+              }
+              break;
+            }
+          case '\\':
+            sstr.concat(*s);
+            ibuf[len++] = *s++;
+            break;
+          default: {
+              utf8_int32_t out = ESC_CODE + *s;
+              int utf8_size = utf8codepointsize(out);
+              char out_utf8[utf8_size + 1];
+              out_utf8[utf8_size] = 0;
+              utf8catcodepoint(out_utf8, out, utf8_size);
+              sstr.concat(out_utf8);
+              for (int i = 0; i < utf8_size; ++i) {
+                ibuf[len++] = out_utf8[i];
+              }
+              s++;
+            }
+            break;
+          }
+          escape = false;
+        } else {
+          sstr.concat(*s);
+          ibuf[len++] = *s++;  // Record character
+        }
       }
+      ibuf[len_idx] = len - len_idx - 1;
 
       if (is_require) {
         if (eb_load_module(sstr.c_str()) < 0)
