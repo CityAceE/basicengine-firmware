@@ -59,7 +59,11 @@ int main(int argc, char **argv) {
       sscanf(optarg, "%dx%d", &sdl_user_w, &sdl_user_h);
       break;
     case 'r':
+#ifdef _WIN32
+      path = _fullpath(NULL, optarg, PATH_MAX);
+#else
       path = realpath(optarg, NULL);
+#endif
       if (path) {
         setenv("ENGINEBASIC_ROOT", path, 1);
         free(path);
