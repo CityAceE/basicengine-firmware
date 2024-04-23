@@ -22,6 +22,7 @@
    <https://www.gnu.org/licenses/>.  */
 
 #ifdef _WIN32
+#include <stdint.h>
 #include <string.h>
 
 /* Hash character pairs so a small shift table can be used.  All bits of
