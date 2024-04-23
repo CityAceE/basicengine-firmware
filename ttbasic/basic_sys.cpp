@@ -5,6 +5,7 @@
 
 #include "basic.h"
 #include "basic_native.h"
+#include "compat.h"
 #include "credits.h"
 #include "eb_video.h"
 #include "eb_sys.h"
