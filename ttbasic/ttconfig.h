@@ -180,4 +180,10 @@ const char *gettext(const char *msg);
 
 #define NUM_LANGS 5
 
+#ifdef _WIN32
+#define DEFAULT_EDITOR "notepad.exe"
+#else
+#define DEFAULT_EDITOR "joe"
+#endif
+
 #endif

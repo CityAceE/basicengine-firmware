@@ -367,7 +367,7 @@ void loadConfig() {
 #ifdef H3
   CONFIG.phys_mode = 0;
 #endif
-  CONFIG.editor = BString("joe");
+  CONFIG.editor = BString(DEFAULT_EDITOR);
   CONFIG.audio_device = BString("default");
 
   // XXX: colorspace is not initialized yet, cannot use conversion methods

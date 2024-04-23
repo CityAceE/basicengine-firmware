@@ -3742,7 +3742,7 @@ void Basic::iedit_() {
   if (getenv("EDITOR"))
     args.push_back(getenv("EDITOR"));
   else
-    args.push_back("atto");
+    args.push_back(DEFAULT_EDITOR);
 
   if (end_of_statement()) {
 #if defined(_WIN32)
