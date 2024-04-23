@@ -24,6 +24,18 @@
 #ifdef _WIN32
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int setenv(const char *name, const char *value, int overwrite)
+{
+  char *pe;
+  asprintf(&pe, "%s=%s", name, value);
+  if (overwrite || getenv(name) == NULL)
+    return putenv(pe);
+  else
+    return 0;
+}
 
 /* Hash character pairs so a small shift table can be used.  All bits of
    p[0] are included, but not all bits from p[-1].  So if two equal hashes
