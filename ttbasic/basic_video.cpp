@@ -137,7 +137,7 @@ void BASIC_INT NOJUMP screen_putch(utf8_int32_t c, bool lazy) {
       return;
     case 'F':
     case 'B':
-      predef_color = c;
+      predef_color = c - ESC_CODE;
       escape = true;
       return;
     case 'b':
