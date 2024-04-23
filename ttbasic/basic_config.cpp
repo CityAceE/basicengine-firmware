@@ -3,6 +3,7 @@
 // Copyright (c) 2023 Ulrich Hecht
 
 #include "basic.h"
+#include "compat.h"
 #include "eb_conio.h"
 #include <fonts.h>
 
@@ -368,6 +369,7 @@ void loadConfig() {
   CONFIG.phys_mode = 0;
 #endif
   CONFIG.editor = BString(DEFAULT_EDITOR);
+  setenv("EDITOR", DEFAULT_EDITOR, 0);
   CONFIG.audio_device = BString("default");
 
   // XXX: colorspace is not initialized yet, cannot use conversion methods
@@ -425,7 +427,7 @@ void loadConfig() {
   }
   fclose(f);
 
-  setenv("EDITOR", CONFIG.editor.c_str(), 1);
+  setenv("EDITOR", CONFIG.editor.c_str(), 0);
 }
 
 /***bc sys SAVE CONFIG
