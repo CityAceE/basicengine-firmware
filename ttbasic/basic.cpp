@@ -3764,7 +3764,8 @@ void Basic::iedit_() {
       sc0.show_curs(0);
 
       if (rc) {	// Something went wrong in the editor.
-        E_ERR(SYS, _("editor exited abnormally"));
+        if (!err)
+          E_ERR(SYS, _("editor exited abnormally"));
         break;
       }
 
