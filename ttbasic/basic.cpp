@@ -3745,6 +3745,9 @@ void Basic::iedit_() {
     args.push_back("atto");
 
   if (end_of_statement()) {
+#if defined(_WIN32)
+    E_ERR(SYS, _("editing program in memory not supported"));
+#else
     // EDIT without argument -> edit the program in memory
     char *tmp_file = tempnam(NULL, "bas");
     char *backup_file = tempnam(NULL, "bas");
@@ -3789,6 +3792,7 @@ void Basic::iedit_() {
     free(backup_file);
 
     return;
+#endif	// _WIN32
   } else if (is_strexp() && (fn = getParamFname()))
     args.push_back(fn);
 
