@@ -49,17 +49,7 @@ void BASIC_INT NOJUMP screen_putch(utf8_int32_t c, bool lazy) {
   if (screen_putch_enable_ansi_mode && sc0.ansi_machine(c))
     return;
 
-  if (!screen_putch_enable_ansi_mode && c == '\\') {
-    if (!escape && !screen_putch_disable_escape_codes) {
-      escape = true;
-      if (hex_digit) {
-        put_hex_digit(hex_value, hex_type, lazy);
-        hex_digit = 0;
-      }
-      return;
-    }
-    sc0.putch('\\');
-  } else {
+  if (escape || hex_digit > 0) {
     if (predef_color != -1) {
       int color = 0;
 
@@ -101,142 +91,140 @@ void BASIC_INT NOJUMP screen_putch(utf8_int32_t c, bool lazy) {
           goto out;
       }
     }
+  }
 
-    if (escape) {
-      switch (c) {
-      case 'R':
-        if (!screen_putch_enable_reverse) {
-          screen_putch_enable_reverse = true;
-          sc0.flipColors();
-        }
-        break;
-      case 'N':
-        if (screen_putch_enable_reverse) {
-          screen_putch_enable_reverse = false;
-          sc0.flipColors();
-        }
-        break;
-      case 'l':
-        if (sc0.c_x())
-          sc0.locate(sc0.c_x() - 1, sc0.c_y());
-        else if (sc0.c_y() > 0)
-          sc0.locate(sc0.getWidth() - 1, sc0.c_y() - 1);
-        break;
-      case 'r':
-        if (sc0.c_x() < sc0.getWidth() - 1)
-          sc0.locate(sc0.c_x() + 1, sc0.c_y());
-        else if (sc0.c_y() < sc0.getHeight() - 1)
-          sc0.locate(0, sc0.c_y() + 1);
-        break;
-      case 'u':
-        if (sc0.c_y() > 0)
-          sc0.locate(sc0.c_x(), sc0.c_y() - 1);
-        break;
-      case 'd':
-        if (sc0.c_y() < sc0.getHeight() - 1)
-          sc0.locate(sc0.c_x(), sc0.c_y() + 1);
-        break;
-      case 'c': sc0.cls();  // fallthrough
-      case 'h': sc0.locate(0, 0); break;
-      case 'f':
-        hex_digit = 1;
-        hex_type = 1;
-        hex_max_len = csp.getColorSpace() < 2 ? 2 : sizeof(ipixel_t) * 2;
-        break;
-      case 'F':
-      case 'B':
-        predef_color = c;
-        break;
-      case 'b':
-        hex_digit = 1;
-        hex_type = 0;
-        hex_max_len = csp.getColorSpace() < 2 ? 2 : sizeof(ipixel_t) * 2;
-        break;
-      case 'x':
-        hex_digit = 1;
-        hex_type = 2;
-        hex_max_len = 6;
-        break;
-      default:
-        sc0.putch(c, lazy);
-        break;
+  if (c >= ESC_CODE && c <= ESC_CODE_END) {
+    switch (c - ESC_CODE) {
+    case 'R':
+      if (!screen_putch_enable_reverse) {
+        screen_putch_enable_reverse = true;
+        sc0.flipColors();
       }
-    } else {
-      switch (c) {
-      case '\n': {
-          if (screen_putch_paging_counter != -1) {
-            // XXX: This fails to take wraparound into account. (Not a problem
-            // for the (currently) only user (HELP), which does word-wrapping
-            // manually.)
-            if (screen_putch_paging_counter++ >= sc0.getHeight() - 2) {
-              newline();
-              c_puts("\\R");
-              c_puts(_("Press any key to continue."));
-              c_puts("\\N");
-              utf8_int32_t c;
-              while (!(c = c_getch())) {
-                yield();
-              }
-              process_hotkeys(c);
-              for (int i = 0; i < strlen(_("Press any key to continue.")); ++i)
-                c_putch('\b');
-              screen_putch_paging_counter = 0;
-            }
-          }
-          if (!skip_lf)
+      break;
+    case 'N':
+      if (screen_putch_enable_reverse) {
+        screen_putch_enable_reverse = false;
+        sc0.flipColors();
+      }
+      break;
+    case 'l':
+      if (sc0.c_x())
+        sc0.locate(sc0.c_x() - 1, sc0.c_y());
+      else if (sc0.c_y() > 0)
+        sc0.locate(sc0.getWidth() - 1, sc0.c_y() - 1);
+      break;
+    case 'r':
+      if (sc0.c_x() < sc0.getWidth() - 1)
+        sc0.locate(sc0.c_x() + 1, sc0.c_y());
+      else if (sc0.c_y() < sc0.getHeight() - 1)
+        sc0.locate(0, sc0.c_y() + 1);
+      break;
+    case 'u':
+      if (sc0.c_y() > 0)
+        sc0.locate(sc0.c_x(), sc0.c_y() - 1);
+      break;
+    case 'd':
+      if (sc0.c_y() < sc0.getHeight() - 1)
+        sc0.locate(sc0.c_x(), sc0.c_y() + 1);
+      break;
+    case 'c': sc0.cls();  // fallthrough
+    case 'h': sc0.locate(0, 0); break;
+    case 'f':
+      hex_digit = 1;
+      hex_type = 1;
+      hex_max_len = csp.getColorSpace() < 2 ? 2 : sizeof(ipixel_t) * 2;
+      escape = true;
+      return;
+    case 'F':
+    case 'B':
+      predef_color = c;
+      escape = true;
+      return;
+    case 'b':
+      hex_digit = 1;
+      hex_type = 0;
+      hex_max_len = csp.getColorSpace() < 2 ? 2 : sizeof(ipixel_t) * 2;
+      escape = true;
+      return;
+    default:
+      sc0.putch(c, lazy);
+      break;
+    }
+  } else {
+    switch (c) {
+    case '\n': {
+        if (screen_putch_paging_counter != -1) {
+          // XXX: This fails to take wraparound into account. (Not a problem
+          // for the (currently) only user (HELP), which does word-wrapping
+          // manually.)
+          if (screen_putch_paging_counter++ >= sc0.getHeight() - 2) {
             newline();
-          else
-            skip_lf = false;
+            c_putch('R' + ESC_CODE);
+            c_puts(_("Press any key to continue."));
+            c_putch('N' + ESC_CODE);
+            utf8_int32_t c;
+            while (!(c = c_getch())) {
+              yield();
+            }
+            process_hotkeys(c);
+            for (int i = 0; i < strlen(_("Press any key to continue.")); ++i)
+              c_putch('\b');
+            screen_putch_paging_counter = 0;
+          }
         }
-        break;
-      case '\r': sc0.locate(0, sc0.c_y()); break;
-      case '\b':
-        if (sc0.c_x() > 0) {
-          sc0.locate(sc0.c_x() - 1);
-          sc0.putch(' ');
-          sc0.locate(sc0.c_x() - 1);
-        }
+        if (!skip_lf)
+          newline();
+        else
+          skip_lf = false;
+      }
+      break;
+    case '\r': sc0.locate(0, sc0.c_y()); break;
+    case '\b':
+      if (sc0.c_x() > 0) {
+        sc0.locate(sc0.c_x() - 1);
+        sc0.putch(' ');
+        sc0.locate(sc0.c_x() - 1);
+      }
+      skip_lf = false;
+      break;
+    case '\t': {
+      int skip = 8 - sc0.c_x() % 8;
+      if (skip == 0)
+        skip = 8;
+      for (int i = 0; i < skip; ++i)
+        sc0.putch(' ');
+      }
+
+      if (sc0.c_x() == 0 && screen_putch_enable_ansi_mode)
+        skip_lf = true;
+      else
         skip_lf = false;
-        break;
-      case '\t': {
-        int skip = 8 - sc0.c_x() % 8;
-        if (skip == 0)
-          skip = 8;
-        for (int i = 0; i < skip; ++i)
-          sc0.putch(' ');
-        }
 
-        if (sc0.c_x() == 0 && screen_putch_enable_ansi_mode)
-          skip_lf = true;
-        else
-          skip_lf = false;
+      break;
+    default: {
+      int from_x = sc0.c_x();
+      sc0.putch(c, lazy);
 
-        break;
-      default: {
-        int from_x = sc0.c_x();
-        sc0.putch(c, lazy);
+      // BASIC Engine screen editor wraps to the next line when the last
+      // character that fits has been written. ANSI terminals wrap when
+      // the first character that does not fit anymore has been written.
 
-        // BASIC Engine screen editor wraps to the next line when the last
-        // character that fits has been written. ANSI terminals wrap when
-        // the first character that does not fit anymore has been written.
+      // Interactive terminal programs therefore do the wrapping manually
+      // so the cursor will not leave the screen at any time.
 
-        // Interactive terminal programs therefore do the wrapping manually
-        // so the cursor will not leave the screen at any time.
+      // We have to work around that somehow. This is not a good solution.
 
-        // We have to work around that somehow. This is not a good solution.
+      // XXX: doesn't work if no ANSI sequences have been encountered yet
 
-        // XXX: doesn't work if no ANSI sequences have been encountered yet
+      // XXX: doesn't prevent the screen from scrolling up when the last
+      // character on the screen has been written
+      if (screen_putch_enable_ansi_mode &&
+          sc0.c_x() == 0 && from_x == sc0.getWidth() - 1)
+        skip_lf = true;
+      else
+        skip_lf = false;
 
-        // XXX: doesn't prevent the screen from scrolling up when the last
-        // character on the screen has been written
-        if (screen_putch_enable_ansi_mode &&
-            sc0.c_x() == 0 && from_x == sc0.getWidth() - 1)
-          skip_lf = true;
-        else
-          skip_lf = false;
-
-        break;
-        }
+      break;
       }
     }
   }
