@@ -67,7 +67,7 @@ void SDLAudio::init(int sample_rate) {
           const char *dev = SDL_GetAudioDeviceName(i, 0);
 
           printf("outdev %d %s\n", i, dev);
-          if (strcasestr(dev, pref)) {
+          if (utf8casestr(dev, pref)) {
             printf("matches %s\n", pref);
             audio_dev = dev;
             break;
