@@ -1034,7 +1034,16 @@ int shell_list(std::list<BString>& args) {
 }
 #else	// __unix__
 int shell_list(std::list<BString>& args) {
-  err = ERR_NOT_SUPPORTED;
+  BString cmd;
+  bool space = false;
+  for (auto a : args) {
+    if (space)
+      cmd.concat(' ');
+    else
+      space = true;
+    cmd.concat(a);
+  }
+  return system(cmd.c_str());
 }
 #endif // __unix__
 
