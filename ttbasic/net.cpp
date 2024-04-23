@@ -187,7 +187,7 @@ void Basic::iwget() {
   int httpCode = open_url(url);
   if (err)
     return;
-  FILE *f = fopen(file.c_str(), "w");
+  FILE *f = fopen(file.c_str(), "wb");
   if (!f) {
     err = ERR_FILE_OPEN;
     inetclose();

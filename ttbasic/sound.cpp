@@ -226,21 +226,21 @@ void BasicSound::loadFont() {
 #ifdef SDL
   char *root = getenv("ENGINEBASIC_ROOT");
   if (root && m_font_name[0] != '/')
-    m_sf2_file = fopen((BString(root) + BString('/') + m_font_name).c_str(), "r");
+    m_sf2_file = fopen((BString(root) + BString('/') + m_font_name).c_str(), "rb");
   else
-    m_sf2_file = fopen(m_font_name.c_str(), "r");
+    m_sf2_file = fopen(m_font_name.c_str(), "rb");
 #else
   if (m_font_name[0] == '/') {
-    m_sf2_file = fopen(m_font_name.c_str(), "r");
+    m_sf2_file = fopen(m_font_name.c_str(), "rb");
   } else {
     m_sf2_file = fopen(
       (BString(SD_PREFIX) + BString('/') + m_font_name).c_str(),
-      "r");
+      "rb");
 #ifndef H3
     if (!m_sf2_file) {
       m_sf2_file = fopen(
         (BString(FLASH_PREFIX) + BString('/') + m_font_name).c_str(),
-        "r");
+        "rb");
     }
 #endif
   }

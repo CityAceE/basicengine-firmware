@@ -93,7 +93,7 @@ EBAPI int eb_bg_load(int bg, const char *file) {
       return -1;
 
   uint8_t w, h, tsx, tsy;
-  FILE *f = fopen(file, "r");
+  FILE *f = fopen(file, "rb");
   if (!f) {
     err = ERR_FILE_OPEN;
     return -1;
@@ -134,7 +134,7 @@ EBAPI int eb_bg_save(int bg, const char *file) {
       return -1;
 
   uint8_t w, h;
-  FILE *f = fopen(file, "w");
+  FILE *f = fopen(file, "wb");
   if (!f) {
     err = ERR_FILE_OPEN;
     return -1;

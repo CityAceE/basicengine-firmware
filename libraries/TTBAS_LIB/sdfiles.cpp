@@ -608,7 +608,7 @@ uint8_t sdfiles::loadBitmap(char *fname, int32_t &dst_x, int32_t &dst_y,
   uint8_t rc = 1;
   int width, height, components;
 
-  pcx_file = fopen(fname, "r");
+  pcx_file = fopen(fname, "rb");
 
   if (!pcx_file) {
     return SD_ERR_OPEN_FILE;
@@ -803,7 +803,7 @@ uint8_t sdfiles::saveBitmapPcx(char *fname, int32_t src_x, int32_t src_y,
   hdr.bytesPerLine = w;
   hdr.paletteType = 1;
 
-  pcx_file = fopen(fname, "w");
+  pcx_file = fopen(fname, "wb");
   if (!pcx_file) {
     return ERR_FILE_OPEN;
   }
@@ -949,10 +949,10 @@ uint8_t sdfiles::rmdir(const char *fname) {
 #define COPY_BUFFER_SIZE 512
 
 uint8_t sdfiles::fcopy(const char *srcp, const char *dstp) {
-  FILE *src = fopen(srcp, "r");
+  FILE *src = fopen(srcp, "rb");
   if (!src)
     return SD_ERR_OPEN_FILE;
-  FILE *dst = fopen(dstp, "w");
+  FILE *dst = fopen(dstp, "wb");
   if (!dst) {
     fclose(src);
     return SD_ERR_OPEN_FILE;
@@ -980,8 +980,8 @@ out:
 
 int8_t sdfiles::compare(const char *one, const char *two) {
   int8_t ret = 0;
-  FILE *fone = fopen(one, "r");
-  FILE *ftwo = fopen(two, "r");
+  FILE *fone = fopen(one, "rb");
+  FILE *ftwo = fopen(two, "rb");
   if (!fone || !ftwo) {
     err = ERR_FILE_OPEN;
     goto out;
