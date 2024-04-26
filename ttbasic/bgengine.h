@@ -259,12 +259,10 @@ protected:
     pixel_t *pixels;
     uint32_t off;
     uint32_t len;
-    uint32_t type;
   };
 
   struct sprite_pattern {
     struct sprite_props p;
-    uint32_t last;
     struct sprite_line lines[0];
   };
 
