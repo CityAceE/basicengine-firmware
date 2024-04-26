@@ -15,6 +15,10 @@ void basic_init_environment() {
   setenv("HOSTTYPE", "x86_64", 1);
 #elif defined(__arm__)
   setenv("HOSTTYPE", "arm", 1);
+#elif defined(__aarch64__)
+  setenv("HOSTTYPE", "aarch64", 1);
+#elif defined(__i386__)
+  setenv("HOSTTYPE", "i386", 1);
 #else
   setenv("HOSTTYPE", "unknown", 1);
 #endif
