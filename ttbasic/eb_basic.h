@@ -12,6 +12,7 @@ extern "C" {
 
 typedef struct {
     int type;
+    int __pad4;
     union {
         double num;
         char *str;
