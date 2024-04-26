@@ -237,28 +237,28 @@ protected:
 
   struct bg_t {
     uint8_t *tiles;
-    uint32_t pat_x, pat_y, pat_w;
-    uint32_t w, h;
-    uint32_t tile_size_x, tile_size_y;
+    int32_t pat_x, pat_y, pat_w;
+    int32_t w, h;
+    int32_t tile_size_x, tile_size_y;
     int scroll_x, scroll_y;
-    uint32_t win_x, win_y, win_w, win_h;
+    int32_t win_x, win_y, win_w, win_h;
     bool enabled;
     uint8_t prio;
     uint8_t *tile_map;
   } m_bg[MAX_BG];
 
   struct sprite_props {
-    uint32_t pat_x, pat_y;
-    uint32_t w, h;
-    uint32_t frame_x, frame_y;
+    int32_t pat_x, pat_y;
+    int32_t w, h;
+    int32_t frame_x, frame_y;
     pixel_t key;
     bool flip_x:1, flip_y:1, opaque:1;
   };
 
   struct sprite_line {
     pixel_t *pixels;
-    uint32_t off;
-    uint32_t len;
+    int32_t off;
+    int32_t len;
   };
 
   struct sprite_pattern {
