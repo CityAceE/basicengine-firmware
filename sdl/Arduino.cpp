@@ -45,8 +45,8 @@ int main(int argc, char **argv) {
 
   sdl_flags = 0;
 
-  sdl_user_w = 640;
-  sdl_user_h = 480;
+  sdl_user_w = 960;
+  sdl_user_h = 540;
 
   while ((opt = getopt(argc, argv, "fdr:s:")) != -1) {
     switch (opt) {
