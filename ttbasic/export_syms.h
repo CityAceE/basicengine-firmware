@@ -547,6 +547,10 @@ S(__aeabi_unwind_cpp_pr1)
 S(__aeabi_unwind_cpp_pr2)
 #endif
 
+#ifdef __i386__
+S(__fixsfdi)
+#endif
+
 // sts_mixer
 S(sts_mixer_init)
 S(sts_mixer_shutdown)
@@ -679,4 +683,8 @@ S(_Znwj)
 S(_ZdlPvm)
 S(_Znam)
 S(_Znwm)
+#endif
+#ifdef __i386__
+S(_Znaj)
+S(_Znwj)
 #endif

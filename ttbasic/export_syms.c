@@ -206,6 +206,10 @@ extern void __aeabi_unwind_cpp_pr1(void);
 extern void __aeabi_unwind_cpp_pr2(void);
 #endif
 
+#ifdef __i386__
+extern void __fixsfdi(void);
+#endif
+
 // === C++ helpers
 
 extern void _ZdlPv(void);
@@ -218,6 +222,10 @@ extern void _Znwj(void);
 extern void _ZdlPvm(void);
 extern void _Znam(void);
 extern void _Znwm(void);
+#endif
+#ifdef __i386__
+extern void _Znaj(void);
+extern void _Znwj(void);
 #endif
 
 #ifdef SDL
