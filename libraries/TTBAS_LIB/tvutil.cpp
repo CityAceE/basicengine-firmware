@@ -316,10 +316,20 @@ static void ICACHE_RAM_ATTR tv_write_px(uint16_t x, uint16_t y, utf8_int32_t c) 
   if (!unimap[c].bitmap && c != ' ') {
     float scale = stbtt_ScaleForPixelHeight(&tvfont->ttf, f_height);
 
-    int ascent, descent, lineGap;
-    stbtt_GetFontVMetrics(&tvfont->ttf, &ascent, &descent, &lineGap);
-    ascent *= scale;
-    descent *= scale;
+    int ascent_i, descent_i, lineGap;
+    float ascent, descent;
+
+    stbtt_GetFontVMetrics(&tvfont->ttf, &ascent_i, &descent_i, &lineGap);
+
+    // Assigning the scaled ascent/descent values to the integer variables
+    // and using them below causes an off-by-one on Win32 (and only Win32,
+    // i686-w64-mingw32-gcc (GCC) 12-win32), observable in characters being
+    // shifted one pixel down.
+    // The issue magically disappears when printing the value as debug
+    // output, without any other change to the code.
+    // This is either a bug or undefined behavior I'm not aware of.
+    ascent = (float)ascent_i * scale;
+    descent = (float)descent_i * scale;
 
     int glyph_idx = stbtt_FindGlyphIndex(&tvfont->ttf, c);
     if (glyph_idx != 0) {
@@ -334,9 +344,9 @@ static void ICACHE_RAM_ATTR tv_write_px(uint16_t x, uint16_t y, utf8_int32_t c) 
         if (i.h == f_height && i.w == f_width &&
             stbtt_FindGlyphIndex(&i.ttf, c) != 0) {
           scale = stbtt_ScaleForPixelHeight(&i.ttf, f_height);
-          stbtt_GetFontVMetrics(&i.ttf, &ascent, &descent, &lineGap);
-          ascent *= scale;
-          descent *= scale;
+          stbtt_GetFontVMetrics(&i.ttf, &ascent_i, &descent_i, &lineGap);
+          ascent = (float)ascent_i * scale;
+          descent = (float)descent_i * scale;
           unimap[c].bitmap = stbtt_GetCodepointBitmap(&i.ttf, 0, scale, c, &w,
                                                       &h, &off_x, &off_y);
           unimap[c].w = w;
