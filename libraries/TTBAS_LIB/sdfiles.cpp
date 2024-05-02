@@ -18,6 +18,8 @@
 
 #include <time.h>
 
+#include <algorithm>
+
 #ifdef UNIFILE_USE_SDFAT
 sdfat::SdFat sdf;
 #endif
@@ -225,6 +227,7 @@ uint8_t sdfiles::flist(char *_dir, char *wildcard, uint8_t clmnum) {
   uint8_t rc = 0;
   uint64_t total_size = 0;
   UnifileString fname;
+  std::vector<std::string> files;
 
   if (strlen(_dir) == 0)
     _dir = (char *)".";
@@ -242,13 +245,19 @@ uint8_t sdfiles::flist(char *_dir, char *wildcard, uint8_t clmnum) {
           !strcmp_P(next->d_name, PSTR("..")))
         continue;
 
-      fname = next->d_name;
+      std::string fname = next->d_name;
+      files.push_back(fname);
+    }
+
+    std::sort(files.begin(), files.end());
+
+    for (auto fname : files) {
       len = fname.length();
       if (!wildcard || (wildcard && wildcard_match(wildcard, fname.c_str()))) {
         // Reduce SPI clock while doing screen writes.
         vs23.setSpiClockWrite();
         struct stat st;
-        stat((BString(_dir) + BString(F("/")) + fname).c_str(), &st);
+        stat((std::string(_dir) + std::string(F("/")) + fname).c_str(), &st);
         putnum(st.st_size, 10);
         c_putch(' ');
         total_size += st.st_size;
