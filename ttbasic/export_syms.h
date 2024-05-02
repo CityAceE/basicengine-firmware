@@ -393,7 +393,9 @@ R(environ, &environ)
 #endif
 
 // setjmp
-#ifndef _WIN32
+#ifdef _WIN32
+R(setjmp, _setjmp)
+#else
 S(setjmp)
 #endif
 S(longjmp)
