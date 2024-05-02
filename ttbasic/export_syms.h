@@ -250,7 +250,10 @@ S(memrchr)
 #endif
 S(memset)
 S(strcasecmp)
-#ifndef _WIN32
+#ifdef _WIN32
+// XXX: Is that a good idea?
+R(strcasestr, utf8casestr)
+#else
 S(strcasestr)
 #endif
 S(strcat)
