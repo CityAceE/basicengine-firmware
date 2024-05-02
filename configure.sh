@@ -230,6 +230,9 @@ SDL2_CONFIG_LIBS="--libs"
 test "$SDL_PLATFORM" == windows && SDL2_CONFIG_LIBS="--static-libs"
 test "$SDL_PLATFORM" == osx && SDL2_CONFIG_LIBS="--static-libs"
 
+SDL_BINARY="basic.sdl"
+test "$SDL_PLATFORM" == windows && SDL_BINARY="basic.exe"
+
 cat <<EOT >build.ninja.sdl
 cc = $CC
 cxx = $CXX
@@ -258,8 +261,8 @@ rule link
 EOT
 
 {
-generate_link basic.sdl $SDL_OBJDIR $SDL_SOURCES $SDL_SOURCES_C
-echo "default basic.sdl"
+generate_link $SDL_BINARY $SDL_OBJDIR $SDL_SOURCES $SDL_SOURCES_C
+echo "default $SDL_BINARY"
 generate_build cc $SDL_OBJDIR $SDL_SOURCES_C
 generate_build cxx $SDL_OBJDIR $SDL_SOURCES
 } >>build.ninja.sdl
