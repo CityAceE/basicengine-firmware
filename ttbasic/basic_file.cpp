@@ -134,7 +134,7 @@ out:
 
   retval[0] = st.st_size;
 #ifdef _WIN32
-  retval[1] = 0;	// XXX: ??
+  retval[1] = !!S_ISDIR(st.st_mode);
 #else
   retval[1] = dir_entry->d_type == DT_DIR;
 #endif
