@@ -274,8 +274,8 @@ msgstr "Error del compilador"
 
 #. [ MB frei]
 # bulk translation
-msgid "MB free"
-msgstr "MB libres"
+msgid " MB free\n"
+msgstr " MB libres\n"
 
 #. [ freie Bytes]
 # bulk translation
@@ -909,3 +909,53 @@ msgstr "fuente desconocida"
 #. unbekannter Schleifentyp
 msgid "unknown loop type"
 msgstr "tipo de bucle desconocido"
+#. freie Bytes
+#.
+msgid " bytes free\n"
+msgstr " bytes libres\n"
+
+#. Bytes.
+#.
+msgid " bytes.\n"
+msgstr " bytes.\n"
+
+#. Dateien,
+msgid " files, "
+msgstr " archivos, "
+
+#. In
+msgid " in "
+msgstr " en "
+
+#. %d extrahierte Dateien
+#.
+msgid "%d files extracted\n"
+msgstr "%d archivos extraídos\n"
+
+#. Verzeichnis
+msgid "Directory "
+msgstr "Directorio "
+
+#. Keine Hilfe verfügbar
+#.
+msgid "No help available\n"
+msgstr "No hay ayuda disponible\n"
+
+#. Drücken Sie eine beliebige andere Taste, um fortzufahren.
+#.
+msgid "Press any other key to continue.\n"
+msgstr "Presione cualquier otra tecla para continuar.\n"
+
+#. Überspringen von autoexec.bas
+#.
+msgid "Skipping autoexec.bas\n"
+msgstr "Saltando autoexec.bas\n"
+
+#. Systemfehler:
+msgid "System error: "
+msgstr "Error del sistema: "
+
+#. TFTP-Fehler
+msgid "TFTP error "
+msgstr "Error de TFTP "
+
