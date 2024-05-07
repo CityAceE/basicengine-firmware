@@ -913,3 +913,56 @@ msgstr "不明なフォント"
 #. unbekannter Schleifentyp
 msgid "unknown loop type"
 msgstr "不明なループタイプ"
+
+#. %d Dateien extrahiert
+msgid "%d files extracted\n"
+msgstr "%d 個のファイルが抽出されました\n"
+
+#. CHAIN ​​ist fehlgeschlagen
+msgid "CHAIN failed"
+msgstr "CHAIN が失敗しました"
+
+#. Verzeichnis
+msgid "Directory "
+msgstr "ディレクトリ"
+
+#. EXIT ist fehlgeschlagen
+msgid "EXIT failed"
+msgstr "EXIT が失敗しました"
+
+#. fehlende Argumente
+msgid "Not enough arguments"
+msgstr "引数が足りません"
+
+#. Drücken Sie eine beliebige andere Taste, um fortzufahren.
+msgid "Press any other key to continue.\n"
+msgstr "続行するには、他のキーを押してください。\n"
+
+#. Keine Hilfe
+msgid "No help available\n"
+msgstr "ヘルプはありません\n"
+
+#. Überspringen von autoexec.bas
+msgid "Skipping autoexec.bas\n"
+msgstr "autoexec.bas をスキップしています\n"
+
+#. Systemfehler:
+msgid "System error: "
+msgstr "システム エラー:"
+
+#. TFTP-Fehler
+msgid "TFTP error "
+msgstr "TFTP エラー"
+
+#. Erwarteter Wert: AUS oder EIN
+msgid "expected: OFF or ON"
+msgstr "期待値: OFF または ON"
+
+#. Erwarteter Wert: EIN oder AUS
+msgid "expected: ON or OFF"
+msgstr "期待値: ON または OFF"
+
+#. mehrere Perioden
+msgid "multiple periods"
+msgstr "複数のピリオド"
+
