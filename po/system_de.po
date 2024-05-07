@@ -917,3 +917,59 @@ msgstr "unbekannte Schriftart"
 #. unknown loop type
 msgid "unknown loop type"
 msgstr "unbekannter Schleifentyp"
+
+msgid " MB free\n"
+msgstr " MB frei\n"
+
+#. Octets libres
+msgid " bytes free\n"
+msgstr " Bytes frei\n"
+
+#. octets.
+msgid " bytes.\n"
+msgstr " Bytes.\n"
+
+#. des dossiers,
+msgid " files, "
+msgstr " Dateien, "
+
+#. dans
+msgid " in "
+msgstr " in "
+
+#. %d fichiers extraits
+msgid "%d files extracted\n"
+msgstr "%d Dateien extrahiert\n"
+
+#. annuaire
+msgid "Directory "
+msgstr "Verzeichnis "
+
+#. Aucune aide disponible
+msgid "No help available\n"
+msgstr "Keine Hilfe verfügbar\n"
+
+msgid "Press B to reload the last parsable version.\n"
+msgstr "Drücken Sie B, um die letzte gültige Version neu zu laden.\n"
+
+#. Appuyez sur n’importe quelle autre touche pour continuer.
+msgid "Press any other key to continue.\n"
+msgstr "Drücken Sie eine beliebige andere Taste, um fortzufahren.\n"
+
+#. autoexec.bas est ignoré
+msgid "Skipping autoexec.bas\n"
+msgstr "autoexec.bas wird übersprungen\n"
+
+#. Erreur système:
+msgid "System error: "
+msgstr "Systemfehler: "
+
+#. Erreur TFTP
+msgid "TFTP error "
+msgstr "TFTP-Fehler "
+
+msgid "editing program in memory not supported"
+msgstr "Das Bearbeiten des Programms im Speicher wird nicht unterstützt"
+
+msgid "unknown memory size\n"
+msgstr "Speichergröße unbekannt\n"
