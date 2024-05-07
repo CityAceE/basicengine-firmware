@@ -906,3 +906,49 @@ msgstr "police inconnue"
 #. unbekannter Schleifentyp
 msgid "unknown loop type"
 msgstr "type de boucle inconnu"
+
+#. freie Bytes
+#.
+msgid " bytes free\n"
+msgstr " octets libres\n"
+
+#. Bytes.
+#.
+msgid " bytes.\n"
+msgstr " octets.\n"
+
+#. In
+msgid " in "
+msgstr " dans "
+
+#. %d extrahierte Dateien
+#.
+msgid "%d files extracted\n"
+msgstr "%d fichiers extraits\n"
+
+#. Keine Hilfe verfügbar
+#.
+msgid "No help available\n"
+msgstr "Aucune aide disponible\n"
+
+#. Drücken Sie eine beliebige andere Taste, um fortzufahren.
+#.
+msgid "Press any other key to continue.\n"
+msgstr "Appuyez sur n’importe quelle autre touche pour continuer.\n"
+
+#. Überspringen Sie autoexec.bottom
+#.
+msgid "Skipping autoexec.bas\n"
+msgstr "Sauter autoexec.bas\n"
+
+#. Systemfehler:
+msgid "System error: "
+msgstr "Erreur système: "
+
+#. TFTP-Fehler
+msgid "TFTP error "
+msgstr "Erreur TFTP "
+
+#. keine aktiven Schleifen
+msgid "no active loops"
+msgstr "pas de boucles actives"
