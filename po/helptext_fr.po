@@ -8994,3 +8994,110 @@ msgstr ""
 "collision a eu lieu (c'est-à-dire, la valeur de retour est `64`) si la "
 "taille du sprite est plus grande que la taille des tuiles du calque "
 "d'arrière-plan donné et que le sprite couvre complètement le carrelage."
+
+#. Kachelbreite, Pixel [`8` (Standard) bis `255`]
+msgid "tile width, pixels [`8` (default) to `255`]"
+msgstr "largeur des tuiles, pixels [`8` (par défaut) à `255`]"
+
+#. Kachelhöhe, Pixel [`8` (Standard) bis `255`]
+msgid "tile height, pixels [`8` (default) to `255`]"
+msgstr "hauteur des tuiles, pixels [`8` (par défaut) à `255`]"
+
+#. * Die Umleitung wird automatisch zurückgesetzt, wenn eine umgeleitete Datei
+#. geschlossen wird (entweder explizit oder implizit, indem eine neue Datei
+#. mit der aktuell verwendeten Dateinummer geöffnet wird) oder wenn zur
+#. Eingabeaufforderung zurückgekehrt wird.
+msgid ""
+"* Redirection will automatically be reset if a file redirected to is closed "
+"(either explicitly or implicitly, by opening a new file using the currently "
+"used file number), or when returning to the command prompt."
+msgstr ""
+"* La redirection sera automatiquement réinitialisée si un fichier redirigé "
+"vers est fermé (soit explicitement, soit implicitement, en ouvrant un "
+"nouveau fichier en utilisant le numéro de fichier actuellement utilisé), ou "
+"lors du retour à l'invite de commande."
+
+#. * Wenn „-1“ als „file_num“ verwendet wird, ist die Umleitung deaktiviert.
+msgid "* If `-1` is used as `file_num`, redirection is turned off."
+msgstr "* Si `-1` est utilisé comme `file_num`, la redirection est désactivée."
+
+#. Gibt die aktuelle Dateinummer zum Umleiten von Bildschirm-E/A in eine Datei
+#. zurück.
+msgid "Returns the current file number for screen I/O redirection to a file."
+msgstr ""
+"Renvoie le numéro de fichier actuel pour la redirection des E/S d'écran vers "
+"un fichier."
+
+#. „0“ für OUTPUT, „1“ für INPUT
+msgid "`0` for OUTPUT, `1` for INPUT"
+msgstr "`0` pour OUTPUT (sortie), `1` pour INPUT (entrée)"
+
+#. Dateinummer oder „-1“ für die Bildschirmausgabe
+msgid "File number, or `-1` for screen output"
+msgstr "Numéro de fichier, ou `-1` pour la sortie à l'écran"
+
+#. * „13“: Name des zu verwendenden Audiogeräts.
+msgid "* `13`: Name of audio device to be used."
+msgstr "* `13` : Nom du périphérique audio à utiliser."
+
+#. Bei der Einstellung „Standard“ (was wenig überraschend die
+#. Standardeinstellung ist) wird automatisch ein geeignetes Audiogerät
+#. ausgewählt. Andernfalls wird das angegebene Audiogerät verwendet. Um
+#. herauszufinden, welche Audiogeräte verfügbar sind, können Sie die Funktion
+#. „SYS$(1, index)“ verwenden.
+msgid ""
+"When set to \"default\" (which is, unsurprisingly, the default), an "
+"appropriate audio device will be chosen automatically. Otherwise, the "
+"specified audio device will be used. To find out what audio devices are "
+"available you can use the `SYS$(1, index)` function."
+msgstr ""
+"Lorsqu'il est défini sur « default » (qui est, sans surprise, la valeur "
+"par défaut), un périphérique audio approprié sera choisi automatiquement. "
+"Sinon, le périphérique audio spécifié sera utilisé. Pour savoir quels "
+"périphériques audio sont disponibles, vous pouvez utiliser la fonction "
+"`SYS$(1, index)`."
+
+#. Anzahl der zu überspringenden Frames [`0` (Standard) bis `59`]
+msgid "number of frames to be skipped [`0` (default) to `59`]"
+msgstr "nombre d'images à ignorer [`0` (par défaut) à `59`]"
+
+
+#. Systemtyp; „0“ für Original (ESP8266), „1“ für Shuttle (ESP32), „2“ für NG
+#. (H3 Bare-Metal), „3“ für LT (Linux/SDL), „4“ für RX (Linux/bare-Metal).
+#. -Metal-Hybrid), „5“ für Windows, „6“ für MacOS.
+msgid ""
+"system type; `0` for original (ESP8266), `1` for Shuttle (ESP32), `2` for NG "
+"(H3 bare-metal), `3` for LT (Linux/SDL-based), `4` for RX (Linux/bare-metal "
+"hybrid), `5` for Windows, `6` for MacOS."
+msgstr ""
+"Type de système; `0` pour l'original (ESP8266), `1` pour Shuttle (ESP32), "
+"`2` pour NG (H3 bare-metal), `3` pour LT (Linux/SDL), `4` pour RX (Linux /"
+"hybride bare-metal), `5` pour Windows, `6` pour MacOS."
+
+#. Nummer des abzurufenden Unterelements
+msgid "number of the subitem to be retrieved"
+msgstr "numéro du sous-élément à récupérer"
+
+#. Die folgenden internen Informationen können mit `SYS$()` abgerufen werden:
+msgid "The following internal information can be retrieved using `SYS$()`:"
+msgstr ""
+"Les informations internes suivantes peuvent être récupérées à l'aide de "
+"`SYS$()` :"
+
+#. Audiogerät, das gerade verwendet wird
+msgid "audio device currently used"
+msgstr "périphérique audio actuellement utilisé"
+
+#. Name des Audiogeräts „index“.
+msgid "name of the audio device `index`"
+msgstr "nom du périphérique audio `index`"
+
+#. * Die angegebenen Audiogerätenamen sind nur auf LT-Plattformen sinnvoll.
+#. Andere Plattformen geben immer die Zeichenfolge „default“ zurück.
+msgid ""
+"* The audio device names provided are only meaningful on LT platforms. Other "
+"platforms always return the string \"default\"."
+msgstr ""
+"* Les noms de périphériques audio fournis n'ont de sens que sur les "
+"plateformes LT. Les autres plateformes renvoient toujours la chaîne « "
+"default »."
