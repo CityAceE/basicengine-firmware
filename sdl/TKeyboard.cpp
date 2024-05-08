@@ -383,15 +383,11 @@ keyEvent TKeyboard::read() {
       vs23.toggleFullscreen();
     }
 
-    if (event.type == SDL_KEYDOWN && (event.key.keysym.mod & KMOD_RALT) &&
-        ((event.key.keysym.sym >= SDLK_F1 && event.key.keysym.sym <= SDLK_F12) ||
-         (event.key.keysym.sym >= SDLK_0 && event.key.keysym.sym <= SDLK_9))) {
+    if (event.type == SDL_KEYDOWN &&
+        (event.key.keysym.mod & (KMOD_RALT|KMOD_RCTRL)) == (KMOD_RALT|KMOD_RCTRL) &&
+        event.key.keysym.sym >= SDLK_0 && event.key.keysym.sym <= SDLK_9) {
       int layout = event.key.keysym.sym;
-      if (layout >= SDLK_F1)
-        layout -= SDLK_F1 - 1;
-      else
-        layout = layout == SDLK_0 ? 10 : layout - SDLK_1 + 1;
-
+      layout = layout == SDLK_0 ? 10 : layout - SDLK_1 + 1;
       setLayout(layout - 1);
       unicode = 0;
     }
