@@ -64,7 +64,7 @@ BG OFF
 @wy	window Y coordinate, pixels [`0` (default) to `PSIZE(1)-1`]
 @ww	window width, pixels [`9` to `PSIZE(0)-wx` (default)]
 @wh	window height, pixels [`0` to `PSIZE(1)-wy` (default)]
-@priority Background priority [`0` to `{MAX_BG_m1}`, default: `bg`]
+@priority	Background priority [`0` to `{MAX_BG_m1}`, default: `bg`]
 \note
 * The `BG` command's attributes can be specified in any order, but it is
   usually a good idea to place the `ON` attribute at the end if used.
