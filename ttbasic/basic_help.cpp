@@ -118,6 +118,7 @@ static BString resolve_macros(BString text) {
 static void print_wrapped(const char *text) {
     int indent = sc0.c_x();
     int last_space = sc0.c_x();
+    int c_size;
 
     BString tps = resolve_macros(BString(text));
     const char *tp = tps.c_str();
@@ -143,6 +144,17 @@ static void print_wrapped(const char *text) {
         }
 
         utf8codepoint(tp, &c);
+        c_size = utf8codepointsize(c);
+
+        if (c == '\\') {
+            // translate legacy escape codes still used by the help text scripts
+            tp += utf8codepointsize(c);
+            utf8_int32_t c1;
+            utf8codepoint(tp, &c1);
+            c = c1 + ESC_CODE;
+            c_size = 1;
+        }
+
         if (c == '\n') {
             c_putch(c);
             while (sc0.c_x() < indent)
@@ -150,7 +162,7 @@ static void print_wrapped(const char *text) {
         } else {
             c_putch(c);
         }
-        tp += utf8codepointsize(c);
+        tp += c_size;
     }
 
     c_putch('\n');
