@@ -5141,7 +5141,7 @@ DO
   instruction_block
 LOOP [<WHILE|UNTIL> condition]
 \args
-@instruction_block one or more instructions on one or more lines
+@instruction_block	one or more instructions on one or more lines
 @condition	a numeric expression
 \note
 If `condition` is prefixed by `WHILE`, the loop will repeat if `condition`
