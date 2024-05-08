@@ -125,7 +125,7 @@ for c in sorted(cmds, key=lambda c: c.split('\n')[0].split(' ', 2)[2]):
             data = re.sub(' +', ' ', data.replace(' +\n', '').replace('\n', ''))
             data = data.strip().replace('"', '\\"')[1:].split('@')
             try:
-                data = ['\t'.join([d.split('\t', 1)[0], translate(d.split('\t', 1)[1].strip())]) for d in data]
+                data = ['\t'.join([d.split(maxsplit=1)[0], translate(d.split(maxsplit=1)[1].strip())]) for d in data]
             except IndexError:
                 pass
             data = [colorize_code(d) for d in data]
