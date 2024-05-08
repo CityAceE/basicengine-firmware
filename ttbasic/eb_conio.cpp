@@ -211,7 +211,6 @@ EBAPI void eb_enable_scrolling(int enable) {
 }
 
 EBAPI void eb_enable_escape_codes(int enable) {
-    screen_putch_disable_escape_codes = !enable;
 }
 
 EBAPI void eb_enable_ansi_mode(int enable) {

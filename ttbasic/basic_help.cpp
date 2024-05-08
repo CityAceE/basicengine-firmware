@@ -161,9 +161,6 @@ static void print_wrapped(const char *text) {
 static void print_help(sjson_node *h) {
     pixel_t saved_fg_color = sc0.getFgColor();
     pixel_t saved_bg_color = sc0.getBgColor();
-    bool escape_codes_disabled = screen_putch_disable_escape_codes;
-
-    screen_putch_disable_escape_codes = false;
 
     c_printf("\n" ESC_F "c%s ", sjson_get_string(h, "command", NULL));
 
@@ -212,7 +209,6 @@ static void print_help(sjson_node *h) {
     c_putch('\n');
 
     sc0.setColor(saved_fg_color, saved_bg_color);
-    screen_putch_disable_escape_codes = escape_codes_disabled;
 }
 
 const char *helps[NUM_LANGS] = {

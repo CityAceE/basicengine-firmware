@@ -2477,9 +2477,6 @@ void SMALL Basic::ilist(uint8_t devno, BString *search, bool show_lines) {
   // Skip until we reach the start line.
   for (lp = listbuf; *lp && (getlineno(lp) < lineno); lp += *lp) {}
 
-  bool escape_codes_disabled = screen_putch_disable_escape_codes;
-  screen_putch_disable_escape_codes = true;
-
   pixel_t saved_fg_color = sc0.getFgColor();
   pixel_t saved_bg_color = sc0.getBgColor();
 
@@ -2511,7 +2508,6 @@ void SMALL Basic::ilist(uint8_t devno, BString *search, bool show_lines) {
   }
 
   sc0.setColor(saved_fg_color, saved_bg_color);
-  screen_putch_disable_escape_codes = escape_codes_disabled;
 }
 
 void Basic::isearch() {
@@ -4529,9 +4525,7 @@ char *Basic::getLineStr(uint32_t lineno, uint8_t devno) {
     sc0.setColor(COL(LINENUM), COL(BG));
   putnum(lineno, 0, devno);
 
-  bool escape_codes_disabled = screen_putch_disable_escape_codes;
   if (devno == 0) {
-    screen_putch_disable_escape_codes = true;
     sc0.setColor(COL(FG), COL(BG));
   }
   c_putch(' ', devno);
@@ -4539,8 +4533,6 @@ char *Basic::getLineStr(uint32_t lineno, uint8_t devno) {
 
   if (devno == 3)
     c_putch(0, devno);  // zero-terminate tbuf
-  else if (devno == 0)
-    screen_putch_disable_escape_codes = escape_codes_disabled;
 
   return tbuf;
 }

@@ -10,7 +10,6 @@ tTVscreen sc0;
 
 #include <fonts.h>
 
-bool screen_putch_disable_escape_codes = true;
 bool screen_putch_enable_ansi_mode = false;
 int screen_putch_paging_counter = -1;
 bool screen_putch_enable_reverse = false;
