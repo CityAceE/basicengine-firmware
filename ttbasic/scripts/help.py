@@ -43,6 +43,7 @@ def colorize_code(d):
     d = re.sub('(WARNING:)', '\\\\\\\\Fp\g<1>\\\\\\\\Ff', d)
     d = re.sub('kbd:\[([^\]]*)]', '\\\\\\\\Fp[\g<1>]\\\\\\\\Ff', d)
     d = re.sub('\\\\endtable', '===', d)
+    d = re.sub('\\\\table header', '===', d)
     d = re.sub('\\\\table', '===', d)
     d = re.sub('====\n----\n', '\\\\\\\\Fn', d)
     d = re.sub('----\n====\n', '\\\\\\\\Ff\\n', d)
