@@ -652,8 +652,8 @@ void Basic::icopy() {
 Compares two files.
 \usage result = COMPARE(file1$, file2$)
 \args
-@file1$	name of first file to compare
-@file2$ name of second file to compare
+@file1$  name of first file to compare
+@file2$  name of second file to compare
 \ret
 If both files are equal, the return value is `0`. Otherwise, the return
 value is `-1` or `1`.
