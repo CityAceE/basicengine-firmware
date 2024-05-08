@@ -127,7 +127,7 @@ num_t BASIC_INT Basic::npad() {
 Get the state of the specified keyboard key.
 \usage state = KEY(num)
 \args
-@num Key code [`0` to `255`]
+@num	Key code [`0` to `255`]
 \ret
 `1` if the key is held, `0` if it is not.
 
