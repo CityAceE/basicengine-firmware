@@ -9,6 +9,8 @@
 //  2017/07/27, flist()で列数を指定可能
 //
 
+#include <algorithm>
+
 #include "../../ttbasic/ttconfig.h"
 #include "sdfiles.h"
 #include "../../ttbasic/basic.h"
@@ -17,8 +19,6 @@
 #include <string.h>
 
 #include <time.h>
-
-#include <algorithm>
 
 #ifdef UNIFILE_USE_SDFAT
 sdfat::SdFat sdf;
