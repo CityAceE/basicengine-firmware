@@ -1009,15 +1009,15 @@ Draws a line.
 \usage
 LINE x1_coord, y1_coord, x2_coord, y2_coord[, color]
 \args
-@x1_coord X coordinate of the line's starting point +
+@x1_coord	X coordinate of the line's starting point +
           [`0` to `PSIZE(0)-1`]
-@y1_coord Y coordinate of the line's starting point +
+@y1_coord	Y coordinate of the line's starting point +
           [`0` to `PSIZE(2)-1`]
-@x2_coord X coordinate of the line's end point +
+@x2_coord	X coordinate of the line's end point +
           [`0` to `PSIZE(0)-1`]
-@y2_coord Y coordinate of the line's end point +
+@y2_coord	Y coordinate of the line's end point +
           [`0` to `PSIZE(2)-1`]
-@color	  color of the line [default: text foreground color]
+@color	color of the line [default: text foreground color]
 \bugs
 Coordinates that exceed the valid pixel memory area will be clamped.
 This can change the slope of the line and is not the behavior one would
